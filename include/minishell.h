@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#define end_arg(x) (x == ' ' || x == '|')
+
 typedef enum {
 	arg,
 	to,
@@ -28,3 +30,8 @@ typedef struct Node {
 	struct Node	*next;
 	Error		error;
 } Node;
+
+
+/* ====== PARSING ====== */
+Node	*parse_command(char *str);
+void	free_list(Node *list);
