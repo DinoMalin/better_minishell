@@ -33,5 +33,11 @@ typedef struct Node {
 
 
 /* ====== PARSING ====== */
-Node	*parse_command(char *str);
+Node	*tokenize(char *str);
 void	free_list(Node *list);
+
+char *expand(char *str, char **envp);
+
+
+/* ====== UTILS ====== */
+char *clean_join(char *origin, const char *to_join);

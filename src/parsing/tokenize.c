@@ -38,7 +38,15 @@ Node *get_arg(char *str) {
 	return node;
 }
 
-Node *parse_command(char *str) {
+void clean_node(Node *node) {
+	if (node->token == single_quotes || node->token == double_quotes) {
+		char *new_content = ft_strtrim(node->content, "\"'");
+		free(node->content);
+		node->content = new_content;
+	}
+}
+
+Node *tokenize(char *str) {
     int     size = 0;
     Node    *curr = NULL;
     Node    *head = NULL;
@@ -59,6 +67,7 @@ Node *parse_command(char *str) {
 			curr = curr->next;
 		}
 		size += ft_strlen(curr->content);
+		clean_node(curr);
     }
 
     return head;
