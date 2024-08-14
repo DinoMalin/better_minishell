@@ -3,12 +3,12 @@
 #include <stdio.h>
 
 #define end_arg(x) (x == ' ' || x == '|')
+#define can_expand(x) (x->token == double_quotes || x->token == arg)
 
 typedef enum {
 	arg,
 	to,
 	from,
-	error,
 	single_quotes,
 	double_quotes,
 	tpipe,
@@ -34,10 +34,10 @@ typedef struct Node {
 
 /* ====== PARSING ====== */
 Node	*tokenize(char *str);
-void	free_list(Node *list);
-
-char *expand(char *str, char **envp);
-
+char	*expand(char *str, char **envp);
+Node	*parse_nodes(char *str, char **envp);
 
 /* ====== UTILS ====== */
-char *clean_join(char *origin, const char *to_join);
+char	*clean_join(char *origin, const char *to_join);
+void	free_list(Node *list);
+
