@@ -1,9 +1,9 @@
 #include "minishell.h"
 
 bool are_we_there_yet(Node *node, char *str, int index) {
-	if (node->token == double_quotes && str[index] == '"' && index != 0)
+	if (node->token == double_quotes && index > 1 && str[index - 1] == '"')
 		return true;
-	if (node->token == single_quotes && str[index] == '\'' && index != 0)
+	if (node->token == single_quotes && index > 1 && str[index - 1] == '\'')
 		return true;
 	if (node->token != single_quotes && node->token != double_quotes && end_arg(str[index]))
 		return true;
@@ -22,11 +22,11 @@ Token check_token(char *str) {
 		return double_quotes;
 	if (str[0] == '\'')
 		return single_quotes;
-	if (!ft_strcmp(str, ">"))
+	if (str[0] == '>')
 		return to;
-	if (!ft_strcmp(str, "<"))
+	if (str[0] == '<')
 		return from;
-	if (!ft_strcmp(str, "|"))
+	if (str[0] == '|')
 		return tpipe;
 	return arg;
 }
@@ -36,6 +36,11 @@ Node *get_arg(char *str) {
 	Node	*node = ft_calloc(1, sizeof(Node));
 
 	node->token = check_token(str);
+	if (is_operator(node->token)) {
+
+		node->content = OPERATOR(node->token);
+		return node;
+	}
 	while (!are_we_there_yet(node, str, size)) {
 		size++;
 	}
@@ -77,7 +82,7 @@ Node *tokenize(char *str) {
 			curr->next = new_node;
 			curr = curr->next;
 		}
-		size += ft_strlen(curr->content);
+		size += ft_strlen(curr->content) - 1;
 		clean_node(curr);
     }
 
