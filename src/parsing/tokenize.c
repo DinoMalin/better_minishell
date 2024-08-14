@@ -22,6 +22,12 @@ Token check_token(char *str) {
 		return double_quotes;
 	if (str[0] == '\'')
 		return single_quotes;
+	if (!ft_strcmp(str, ">"))
+		return to;
+	if (!ft_strcmp(str, "<"))
+		return from;
+	if (!ft_strcmp(str, "|"))
+		return tpipe;
 	return arg;
 }
 
@@ -39,8 +45,13 @@ Node *get_arg(char *str) {
 }
 
 void clean_node(Node *node) {
-	if (node->token == single_quotes || node->token == double_quotes) {
-		char *new_content = ft_strtrim(node->content, "\"'");
+	if (node->token == single_quotes) {
+		char *new_content = ft_strtrim(node->content, "'");
+		free(node->content);
+		node->content = new_content;
+
+	} else if (node->token == double_quotes) {
+		char *new_content = ft_strtrim(node->content, "\"");
 		free(node->content);
 		node->content = new_content;
 	}
@@ -73,13 +84,3 @@ Node *tokenize(char *str) {
     return head;
 }
 
-void free_list(Node *list) {
-	Node	*head = list;
-
-	while (head) {
-		Node *next = head->next;
-		free(head->content);
-		free(head);
-		head = next;
-	}
-}
