@@ -19,9 +19,9 @@ char	*ft_strtrim(char const *str, char const *set)
 
 	start = 0;
 	end = ft_strlen(str) - 1;
-	while (ft_strchr((char *)set, str[start]))
+	while (str[start] && ft_strchr((char *)set, str[start]))
 		start++;
-	while (ft_strchr((char *)set, str[end]))
+	while (end >= 0 && ft_strchr((char *)set, str[end]))
 		end--;
 	return (ft_substr(str, start, (end - start) + 1));
 }
