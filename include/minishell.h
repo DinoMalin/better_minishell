@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define end_arg(x) (x == ' ' || x == '|')
+#define end_arg(x) (x == ' ' || x == '|' || x == '<' || x == '>')
 #define can_expand(x) (x->token == double_quotes || x->token == arg)
 #define is_operator(x) (x == tpipe || x == to || x == from)
 #define OPERATOR(x) x == tpipe ?	ft_strdup("|") : \
