@@ -39,7 +39,7 @@ typedef struct Node {
 /* ====== PARSING ====== */
 Node	*tokenize(char *str);
 char	*expand(char *str, char **envp);
-Node	*parse_nodes(char *str, char **envp);
+Node	*parse(char *str, char **envp);
 
 /* ====== UTILS ====== */
 char	*clean_join(char *origin, const char *to_join);
