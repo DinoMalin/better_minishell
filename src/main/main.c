@@ -8,9 +8,9 @@ void display_token_type(Node *node) {
 	else if (node->token == from)
 		ft_printf("from");
 	else if (node->token == single_quotes)
-		ft_printf("single_quotes");
+		ft_printf("sq");
 	else if (node->token == double_quotes)
-		ft_printf("double_quotes");
+		ft_printf("dq");
 	else if (node->token == tpipe)
 		ft_printf("tpipe");
 }
@@ -22,7 +22,7 @@ void display_list(Node *list) {
 	while (curr) {
 		ft_printf("n%d: ", count); 
 		display_token_type(curr);
-		ft_printf(" [%s]\n", curr->content);
+		ft_printf("\t[%s]\n", curr->content);
 		curr = curr->next;
 		count++;
 	}
