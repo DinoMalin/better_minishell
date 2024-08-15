@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-Node *parse_nodes(char *str, char **envp) {
+Node *parse(char *str, char **envp) {
 	Node *res_head = tokenize(str);
 	Node *curr = res_head;
 

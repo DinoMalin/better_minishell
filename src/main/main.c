@@ -34,7 +34,7 @@ int main(int ac, char **av, char **envp) {
 		return 1;	
 	}
 
-	Node *nodes = parse_nodes(av[1], envp);
+	Node *nodes = parse(av[1], envp);
 	display_list(nodes);
 	free_list(nodes);
 }
