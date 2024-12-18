@@ -7,6 +7,10 @@ void display_token_type(Node *node) {
 		ft_printf("to");
 	else if (node->token == from)
 		ft_printf("from");
+	else if (node->token == append)
+		ft_printf("append");
+	else if (node->token == heredoc)
+		ft_printf("heredoc");
 	else if (node->token == single_quotes)
 		ft_printf("sq");
 	else if (node->token == double_quotes)

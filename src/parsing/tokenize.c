@@ -18,15 +18,19 @@ bool are_we_there_yet(Node *node, char *str, int index) {
 }
 
 Token check_token(char *str) {
-	if (str[0] == '"')
+	if (!ft_strncmp(str, "\"", 1))
 		return double_quotes;
-	if (str[0] == '\'')
+	if (!ft_strncmp(str, "'", 1))
 		return single_quotes;
-	if (str[0] == '>')
+	if (!ft_strncmp(str, ">>", 2))
+		return append;
+	if (!ft_strncmp(str, "<<", 2))
+		return heredoc;
+	if (!ft_strncmp(str, ">", 1))
 		return to;
-	if (str[0] == '<')
+	if (!ft_strncmp(str, "<", 1))
 		return from;
-	if (str[0] == '|')
+	if (!ft_strncmp(str, "|", 1))
 		return tpipe;
 	return arg;
 }

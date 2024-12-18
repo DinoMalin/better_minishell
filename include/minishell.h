@@ -4,15 +4,20 @@
 
 #define end_arg(x) (x == ' ' || x == '|' || x == '<' || x == '>')
 #define can_expand(x) (x->token == double_quotes || x->token == arg)
-#define is_operator(x) (x == tpipe || x == to || x == from)
+#define is_operator(x) (x == tpipe || x == append || x == heredoc \
+					|| x == to || x == from)
 #define OPERATOR(x) x == tpipe ?	ft_strdup("|") : \
+					x == append ?	ft_strdup(">>") : \
+					x == heredoc ?	ft_strdup("<<") : \
 					x == to ?		ft_strdup(">") : \
 									ft_strdup("<")
 
 typedef enum {
 	arg,
 	to,
+	append,
 	from,
+	heredoc,
 	single_quotes,
 	double_quotes,
 	tpipe,
