@@ -12,7 +12,8 @@ LFLAGS =	-Llib -lft
 SRC_DIR = src/
 OBJ_DIR = obj/
 FILES =	main/main main/utils \
-		parsing/tokenize parsing/expand parsing/parse
+		parsing/tokenize parsing/expand parsing/parse \
+		processing/process
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))

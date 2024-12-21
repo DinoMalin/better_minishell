@@ -31,7 +31,7 @@ Token check_token(char *str) {
 	if (!ft_strncmp(str, "<", 1))
 		return from;
 	if (!ft_strncmp(str, "|", 1))
-		return tpipe;
+		return t_pipe;
 	return arg;
 }
 
