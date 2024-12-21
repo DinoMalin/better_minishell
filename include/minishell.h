@@ -39,8 +39,9 @@ typedef struct Node {
 	Token		token;
 	struct Node	*next;
 	Error		error;
-	int			index;
-} Node;
+	int			index;	// isn't used to count : the index will sometime be
+} Node;					// non-consecutives. It's used to know if two args
+						// must be merged
 
 
 /* ====== PARSING ====== */
