@@ -17,6 +17,8 @@ FILES =	main/main main/utils \
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
 OBJS = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(FILES)))
 
+SH=bash
+
 all: $(NAME)
 
 bonus: all
@@ -31,9 +33,9 @@ fclean : clean
 re: fclean all
 
 $(NAME): $(OBJS) $(LIBFT)
-	@echo "\e[32m✔ Compilating sources files...\e[37m"
+	@echo -e "\e[32m✔ Compilating sources files...\e[37m"
 	@$(CC) -o $@ $(OBJS) $(LFLAGS)
-	@echo "\e[32m✔ Executable created.\e[37m"
+	@echo -e "\e[32m✔ Executable created.\e[37m"
 
 $(LIBFT):
 	@make -C lib
