@@ -26,7 +26,8 @@ void display_list(Node *list) {
 	while (curr) {
 		ft_printf("n%d: ", count); 
 		display_token_type(curr);
-		ft_printf("\t[%s]\n", curr->content);
+		ft_printf("\t[%s]", curr->content);
+		ft_printf("\t%d\n", curr->index);
 		curr = curr->next;
 		count++;
 	}

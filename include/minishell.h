@@ -2,7 +2,8 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#define end_arg(x) (x == ' ' || x == '|' || x == '<' || x == '>')
+#define isspace(x) ((x >= '\t' && x <= '\r') || x == ' ')
+#define end_arg(x) (x == ' ' || x == '|' || x == '<' || x == '>' || x == '\'' || x == '"')
 #define can_expand(x) (x->token == double_quotes || x->token == arg)
 #define is_operator(x) (x == tpipe || x == append || x == heredoc \
 					|| x == to || x == from)
@@ -38,6 +39,7 @@ typedef struct Node {
 	Token		token;
 	struct Node	*next;
 	Error		error;
+	int			index;
 } Node;
 
 
@@ -48,5 +50,6 @@ Node	*parse(char *str, char **envp);
 
 /* ====== UTILS ====== */
 char	*clean_join(char *origin, const char *to_join);
+void	free_node(Node *node);
 void	free_list(Node *list);
 

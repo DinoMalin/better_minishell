@@ -41,7 +41,6 @@ Node *get_arg(char *str) {
 
 	node->token = check_token(str);
 	if (is_operator(node->token)) {
-
 		node->content = OPERATOR(node->token);
 		return node;
 	}
@@ -66,19 +65,37 @@ void clean_node(Node *node) {
 	}
 }
 
+int skip_whitespace(char *str) {
+	int res = 0;
+
+	while (isspace(str[res])) {
+		res++;
+	}
+
+	return res;
+}
+
 Node *tokenize(char *str) {
     int     size = 0;
     Node    *curr = NULL;
     Node    *head = NULL;
     Node    *new_node = NULL;
+	int		index = 0;
 
     while (str[size]) {
-        while (str[size] == ' ')
-            size++;
+		int skip = skip_whitespace(str+size);
+		if (skip)
+			index++;
+		str += skip;
 		if (!str[size])
 			break;
+
 		new_node = get_arg(str + size);
+		new_node->index = index;
+		if (is_operator(new_node->token))
+			index++;
 		size++;
+
 		if (!head) {
 			curr = new_node;
 			head = curr;
@@ -86,6 +103,7 @@ Node *tokenize(char *str) {
 			curr->next = new_node;
 			curr = curr->next;
 		}
+
 		size += ft_strlen(curr->content) - 1;
 		clean_node(curr);
     }

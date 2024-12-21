@@ -6,13 +6,17 @@ char *clean_join(char *origin, const char *to_join) {
 	return res;
 }
 
+void free_node(Node *node) {
+	free(node->content);
+	free(node);
+}
+
 void free_list(Node *list) {
 	Node	*head = list;
 
 	while (head) {
 		Node *next = head->next;
-		free(head->content);
-		free(head);
+		free_node(head);
 		head = next;
 	}
 }
