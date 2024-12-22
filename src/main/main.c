@@ -63,18 +63,7 @@ void display_processed(Command *cmd) {
 }
 
 int main(int ac, char **av, char **envp) {
-	if (ac != 2) {
-		ft_printf("Usage: %s <test>", av[0]);
-		return 1;	
-	}
-
-	Node *nodes = parse(av[1], envp);
-	display_list(nodes);
-
-	ft_printf("---------------\n");
-	Command *cmd = process(nodes);
-	display_processed(cmd);
-	free_list(nodes);
-	free_cmds(cmd);
-
+	(void)ac;
+	(void)av;
+	tests(envp);
 }

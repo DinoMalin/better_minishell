@@ -81,3 +81,5 @@ void	free_list(Node *list);
 char	**strsjoin(char **origin, char *str);
 char	**clean_strsjoin(char **origin, char *to_join);
 
+/* ====== TESTS ====== */
+void	tests(char **envp);

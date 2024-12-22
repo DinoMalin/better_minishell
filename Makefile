@@ -11,7 +11,7 @@ LFLAGS =	-Llib -lft
 
 SRC_DIR = src/
 OBJ_DIR = obj/
-FILES =	main/main main/utils \
+FILES =	main/main main/utils main/tests \
 		parsing/tokenize parsing/expand parsing/parse \
 		processing/process
 
