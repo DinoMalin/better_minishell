@@ -74,6 +74,7 @@ int main(int ac, char **av, char **envp) {
 	ft_printf("---------------\n");
 	Command *cmd = process(nodes);
 	display_processed(cmd);
-
 	free_list(nodes);
+	free_cmds(cmd);
+
 }

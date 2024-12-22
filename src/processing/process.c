@@ -14,6 +14,9 @@ void check_redir(Command *cmd, Node **data) {
 	Token type = (*data)->token;
 	(*data) = (*data)->next;
 
+	if (!(*data)) // todo: handle error when empty redir
+		return;
+
 	if (type == from) {
 		cmd->in = ft_strdup((*data)->content);
 		cmd->in_type = r_from;
@@ -35,7 +38,7 @@ void analyze_command(Command *cmd, Node **data) {
 		return;
 	}
 
-	cmd->av = clean_strsjoin(cmd->av, (*data)->content);
+	cmd->av = clean_strsjoin(cmd->av, ft_strdup((*data)->content));
 }
 
 Command *process(Node *data) {
@@ -60,7 +63,8 @@ Command *process(Node *data) {
 			arg_index++;
 		}
 
-		data = data->next;
+		if (data)
+			data = data->next;
 	}
 	
 	return head;

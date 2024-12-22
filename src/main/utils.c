@@ -1,9 +1,25 @@
 #include "minishell.h"
 
-char *clean_join(char *origin, const char *to_join) {
-	char *res = ft_strjoin(origin, to_join);
-	free(origin);
-	return res;
+void free_cmd(Command *cmd) {
+	int i = 0;
+
+	xfree(cmd->cmd);
+	while (cmd->av[i]) {
+		free(cmd->av[i]);
+		i++;
+	}
+	free(cmd->av);
+	xfree(cmd->in);
+	xfree(cmd->out);
+	free(cmd);
+}
+
+void free_cmds(Command *list) {
+	while (list) {
+		Command *next = list->next;
+		free_cmd(list);
+		list = next;
+	}
 }
 
 void free_node(Node *node) {
@@ -12,12 +28,10 @@ void free_node(Node *node) {
 }
 
 void free_list(Node *list) {
-	Node	*head = list;
-
-	while (head) {
-		Node *next = head->next;
-		free_node(head);
-		head = next;
+	while (list) {
+		Node *next = list->next;
+		free_node(list);
+		list = next;
 	}
 }
 
@@ -41,6 +55,12 @@ char **strsjoin(char **origin, char *str) {
 
 char **clean_strsjoin(char **origin, char *to_join) {
 	char **res = strsjoin(origin, to_join);
+	free(origin);
+	return res;
+}
+
+char *clean_join(char *origin, const char *to_join) {
+	char *res = ft_strjoin(origin, to_join);
 	free(origin);
 	return res;
 }

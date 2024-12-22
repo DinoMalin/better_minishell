@@ -13,6 +13,7 @@
 					x == heredoc ?	ft_strdup("<<") : \
 					x == to ?		ft_strdup(">") : \
 									ft_strdup("<")
+#define xfree(x) if (x) {free(x);}
 
 typedef enum {
 	arg,
@@ -74,6 +75,7 @@ Command	*process(Node *data);
 
 /* ====== UTILS ====== */
 char	*clean_join(char *origin, const char *to_join);
+void	free_cmds(Command *list);
 void	free_node(Node *node);
 void	free_list(Node *list);
 char	**strsjoin(char **origin, char *str);
