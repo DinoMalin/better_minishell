@@ -14,8 +14,10 @@ void check_redir(Command *cmd, Node **data) {
 	Token type = (*data)->token;
 	(*data) = (*data)->next;
 
-	if (!(*data)) // todo: handle error when empty redir
+	if (!(*data)) {
+		cmd->error.type = empty_redir;
 		return;
+	}
 
 	if (type == from) {
 		cmd->in = ft_strdup((*data)->content);

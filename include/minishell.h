@@ -29,6 +29,7 @@ typedef enum {
 typedef enum {
 	single_quote,
 	double_quote,
+	empty_redir
 } Error_Type;
 
 typedef struct {
@@ -59,9 +60,10 @@ typedef struct Command {
 	char			**av;
 	char			*in;
 	char			*out;
-	struct Command	*next;
 	Redir			in_type;
 	Redir			out_type;
+	Error			error;
+	struct Command	*next;
 } Command;
 
 
