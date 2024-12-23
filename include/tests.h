@@ -1,4 +1,5 @@
 #include <assert.h>
+#include <stdlib.h>
 
 #define STRINGS_DIFFER(x, y)	((!x && y) || (x && !y) \
 								|| (x && y && ft_strcmp(x, y)))

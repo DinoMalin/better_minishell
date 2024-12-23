@@ -138,4 +138,21 @@ void tests(char **envp) {
 	assert(comp("echo test <<", (Command[]) {
 		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
 	}, envp));
+
+	// Env var
+	assert(comp("echo $USER", (Command[]) {
+		COMMAND("echo", AV(getenv("USER"), NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo $LS_COLORS", (Command[]) {
+		COMMAND("echo", AV(getenv("LS_COLORS"), NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo $UNKNOWN", (Command[]) { // must be non existant
+		COMMAND("echo", AV("", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo '$USER'", (Command[]) {
+		COMMAND("echo", AV("$USER", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo \"$USER\"", (Command[]) {
+		COMMAND("echo", AV(getenv("USER"), NULL), NULL, NULL, r_from, r_to)
+	}, envp));
 }
