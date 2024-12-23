@@ -49,8 +49,67 @@ int comp(char *prompt, Command *expected, char **envp) {
 }
 
 void tests(char **envp) {
+	// Basic
 	assert(comp("echo test < in | cat > out", (Command[]) {
 		COMMAND("echo", AV("test", NULL), "in", NULL, r_from, r_to),
 		COMMAND("cat", AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
+
+	// Redir
+	assert(comp("echo test", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+
+	assert(comp("echo test < in", (Command[]) {
+		COMMAND("echo", AV("test", NULL), "in", NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test <in", (Command[]) {
+		COMMAND("echo", AV("test", NULL), "in", NULL, r_from, r_to)
+	}, envp));
+
+	assert(comp("echo test > out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, "out", r_from, r_to)
+	}, envp));
+	assert(comp("echo test >out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, "out", r_from, r_to)
+	}, envp));
+
+	assert(comp("echo test >> out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, "out", r_from, r_append)
+	}, envp));
+	assert(comp("echo test >>out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, "out", r_from, r_append)
+	}, envp));
+
+	assert(comp("echo test << here", (Command[]) {
+		COMMAND("echo", AV("test", NULL), "here", NULL, r_heredoc, r_to)
+	}, envp));
+	assert(comp("echo test <<here", (Command[]) {
+		COMMAND("echo", AV("test", NULL), "here", NULL, r_heredoc, r_to)
+	}, envp));
+
+	assert(comp("echo test > ", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test >", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test < ", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test <", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test >> ", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test >>", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test << ", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test <<", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
 	}, envp));
 }
