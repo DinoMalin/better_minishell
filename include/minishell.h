@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define isspace(x) ((x >= '\t' && x <= '\r') || x == ' ')
-#define end_arg(x) (x == ' ' || x == '|' || x == '<' || x == '>' || x == '\'' || x == '"')
+#define end_arg(x) (isspace(x) || x == '|' || x == '<' || x == '>' || x == '\'' || x == '"')
 #define can_expand(x) (x->token == double_quotes || x->token == arg)
 #define is_operator(x) (x == t_pipe || x == append || x == heredoc \
 					|| x == to || x == from)
