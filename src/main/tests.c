@@ -55,6 +55,32 @@ void tests(char **envp) {
 		COMMAND("cat", AV(NULL), NULL, "out", r_from, r_to)
 	}, envp));
 
+	// Command
+	assert(comp("echo test", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo ", (Command[]) {
+		COMMAND("echo", AV(NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo", (Command[]) {
+		COMMAND("echo", AV(NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("", (Command[]) {
+		COMMAND(NULL, AV(NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("> out", (Command[]) {
+		COMMAND(NULL, AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
+	assert(comp(">out", (Command[]) {
+		COMMAND(NULL, AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
+	assert(comp("> out echo", (Command[]) {
+		COMMAND("echo", AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
+	assert(comp(">out echo", (Command[]) {
+		COMMAND("echo", AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
+
 	// Redir
 	assert(comp("echo test", (Command[]) {
 		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
