@@ -4,9 +4,9 @@ void merge(Node *head) {
 	Node *next;
 	Node *after_next;
 
-	while (head->next) {
+	while (head && head->next) {
 		next = head->next;
-		while (head->index == next->index) {
+		while (next && head->index == next->index) {
 			head->content = clean_join(head->content, next->content);
 
 			after_next = next->next;
@@ -14,7 +14,7 @@ void merge(Node *head) {
 			free_node(next);
 			next = after_next;
 		}
-		head = next;
+		head = head->next;
 	}
 }
 
