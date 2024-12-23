@@ -54,6 +54,10 @@ void tests(char **envp) {
 		COMMAND("echo", AV("test", NULL), "in", NULL, r_from, r_to),
 		COMMAND("cat", AV(NULL), NULL, "out", r_from, r_to)
 	}, envp));
+	assert(comp("echo\t\r   test\t\t    <\t\tin\t|   cat    >  out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), "in", NULL, r_from, r_to),
+		COMMAND("cat", AV(NULL), NULL, "out", r_from, r_to)
+	}, envp));
 
 	// Command
 	assert(comp("echo test", (Command[]) {
