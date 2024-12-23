@@ -155,4 +155,27 @@ void tests(char **envp) {
 	assert(comp("echo \"$USER\"", (Command[]) {
 		COMMAND("echo", AV(getenv("USER"), NULL), NULL, NULL, r_from, r_to)
 	}, envp));
+
+	// Quotes
+	assert(comp("echo \"test\"", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo \"test\"test", (Command[]) {
+		COMMAND("echo", AV("testtest", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo 'test'test", (Command[]) {
+		COMMAND("echo", AV("testtest", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo '\"test\"'", (Command[]) {
+		COMMAND("echo", AV("\"test\"", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo \"'test'\"", (Command[]) {
+		COMMAND("echo", AV("'test'", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo \"test1 test2 test3\"", (Command[]) {
+		COMMAND("echo", AV("test1 test2 test3", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo \"test1 test2 test3 \"test4", (Command[]) {
+		COMMAND("echo", AV("test1 test2 test3 test4", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
 }
