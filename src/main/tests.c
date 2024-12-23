@@ -178,4 +178,16 @@ void tests(char **envp) {
 	assert(comp("echo \"test1 test2 test3 \"test4", (Command[]) {
 		COMMAND("echo", AV("test1 test2 test3 test4", NULL), NULL, NULL, r_from, r_to)
 	}, envp));
+
+	// Pipes
+	assert(comp("echo test | cat out", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to),
+		COMMAND("cat", AV("out", NULL), NULL, NULL, r_from, r_to)
+	}, envp));
+	assert(comp("echo test | ", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to),
+	}, envp));
+	assert(comp("echo test |", (Command[]) {
+		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to),
+	}, envp));
 }
