@@ -18,19 +18,29 @@ void check_redir(Command *cmd, Node **data) {
 		return;
 	}
 
-	if (type == from) {
-		cmd->in = ft_strdup((*data)->content);
-		cmd->in_type = r_from;
-	} else if (type == heredoc) {
-		cmd->in = ft_strdup((*data)->content);
-		cmd->in_type = r_heredoc;
-	} else if (type == to) {
-		cmd->out = ft_strdup((*data)->content);
-		cmd->out_type = r_to;
-	} else if (type == append) {
-		cmd->out = ft_strdup((*data)->content);
-		cmd->out_type = r_append;
+	if (is_redir((*data)->token)) {
+		cmd->error.type = redir_toward_redir;
+		return;
 	}
+
+	if (type == from || type == heredoc) {
+		if (cmd->in)
+			free(cmd->in);
+		cmd->in = ft_strdup((*data)->content);
+	} else if (type == to || type == append) {
+		if (cmd->out)
+			free(cmd->out);
+		cmd->out = ft_strdup((*data)->content);
+	}
+
+	if (type == from)
+		cmd->in_type = r_from;
+	else if (type == heredoc)
+		cmd->in_type = r_heredoc;
+	else if (type == to)
+		cmd->out_type = r_to;
+	else if (type == append)
+		cmd->out_type = r_append;
 }
 
 void analyze_command(Command *cmd, Node **data, int *arg_index) {

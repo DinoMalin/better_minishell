@@ -29,7 +29,8 @@ typedef enum {
 typedef enum {
 	single_quote,
 	double_quote,
-	empty_redir
+	empty_redir,
+	redir_toward_redir
 } Error_Type;
 
 typedef struct {
@@ -59,7 +60,7 @@ typedef struct Command {
 	char			*cmd;
 	char			**av;
 	char			*in;
-	char			*out;
+	char			*out; // todo: update to array to open every output
 	Redir			in_type;
 	Redir			out_type;
 	Error			error;
