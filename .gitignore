@@ -1,3 +1,5 @@
 minishell
+fuzzer
+leak-*
 *.o
 *.a

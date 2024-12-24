@@ -195,3 +195,18 @@ void tests(char **envp) {
 		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to),
 	}, envp));
 }
+
+int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
+	char *input = malloc(size+1);
+	ft_memcpy(input, data, size);
+	input[size] = 0;
+
+	Node *parsing_data = parse(input, (char*[]){NULL});
+	Command *cmd = process(parsing_data);
+
+	free_list(parsing_data);
+	free_cmds(cmd);
+	free(input);
+
+	return 0;
+}
