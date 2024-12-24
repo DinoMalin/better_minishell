@@ -142,6 +142,9 @@ void tests(char **envp) {
 	assert(comp("echo test <<", (Command[]) {
 		COMMAND("echo", AV("test", NULL), NULL, NULL, r_from, r_to)
 	}, envp));
+	assert(comp(">>>", (Command[]) {
+		COMMAND(NULL, AV(NULL), NULL, NULL, r_from, r_to),
+	}, envp));
 
 	// Env var
 	assert(comp("echo $USER", (Command[]) {
