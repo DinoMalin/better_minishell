@@ -4,6 +4,8 @@ Command *init_cmd() {
 	Command *res = ft_calloc(1, sizeof(Command));
 
 	res->av = ft_calloc(1, sizeof(char *));
+	res->in = ft_calloc(1, sizeof(char *));
+	res->out = ft_calloc(1, sizeof(char *));
 	res->in_type = r_from;
 	res->out_type = r_to;
 	return res;
@@ -24,13 +26,9 @@ void check_redir(Command *cmd, Node **data) {
 	}
 
 	if (type == from || type == heredoc) {
-		if (cmd->in)
-			free(cmd->in);
-		cmd->in = ft_strdup((*data)->content);
+		cmd->in = clean_strsjoin(cmd->in, ft_strdup((*data)->content));
 	} else if (type == to || type == append) {
-		if (cmd->out)
-			free(cmd->out);
-		cmd->out = ft_strdup((*data)->content);
+		cmd->out = clean_strsjoin(cmd->out, ft_strdup((*data)->content));
 	}
 
 	if (type == from)

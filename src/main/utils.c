@@ -1,16 +1,19 @@
 #include "minishell.h"
 
-void free_cmd(Command *cmd) {
-	int i = 0;
-
-	xfree(cmd->cmd);
-	while (cmd->av[i]) {
-		free(cmd->av[i]);
+void free_av(char **av) {
+ 	int i = 0;
+	while (av[i]) {
+		free(av[i]);
 		i++;
 	}
-	free(cmd->av);
-	xfree(cmd->in);
-	xfree(cmd->out);
+	free(av);
+}
+
+void free_cmd(Command *cmd) {
+	free_av(cmd->av);
+	free_av(cmd->in);
+	free_av(cmd->out);
+	xfree(cmd->cmd);
 	free(cmd);
 }
 

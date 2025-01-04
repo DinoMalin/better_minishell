@@ -59,8 +59,8 @@ typedef enum {
 typedef struct Command {
 	char			*cmd;
 	char			**av;
-	char			*in;
-	char			*out; // todo: update to array to open every output
+	char			**in;
+	char			**out;
 	Redir			in_type;
 	Redir			out_type;
 	Error			error;
