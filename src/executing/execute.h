@@ -18,13 +18,6 @@
 		}									\
 	}
 
-#define UPDATE_CODE_VAR()							\
-	{												\
-		char *s = ft_itoa(g_exit_status);			\
-		ctx->env = modify_env(ctx->env, "?", s);	\
-		free(s);									\
-	}
-
 #define TO_FLAGS O_WRONLY | O_CREAT | O_TRUNC
 #define APPEND_FLAGS O_WRONLY | O_CREAT | O_APPEND
 #define FROM_FLAGS O_RDONLY

@@ -86,5 +86,4 @@ void execute(Command *head, Context *ctx) {
 	xclose(pipes.prev[0]);
 	xclose(pipes.prev[1]);
 	wait_everything(head);
-	UPDATE_CODE_VAR();
 }

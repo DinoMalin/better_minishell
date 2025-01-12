@@ -11,6 +11,13 @@
 
 #define xfree(x) if (x) {free(x);}
 
+#define UPDATE_CODE_VAR()							\
+	{												\
+		char *s = ft_itoa(g_exit_status);			\
+		ctx.env = modify_env(ctx.env, "?", s);	\
+		free(s);									\
+	}
+
 typedef enum {
 	t_word,
 	t_to,
