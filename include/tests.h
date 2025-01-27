@@ -20,4 +20,4 @@
 #define xgetenv(x) (getenv(x) ? getenv(x) : "")
 
 #define CMD(cmd, av, redirs, type, from, to) \
-	(Command){cmd, av, 0, redirs, 0, type, from, to, 0, 0, NULL}
+	(Command){cmd, NULL, av, 0, redirs, 0, type, from, to, 0, 0, NULL}

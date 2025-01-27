@@ -14,16 +14,16 @@ OBJ_DIR = obj/
 MAIN	= main/main
 FILES	= main/errors main/input main/signals							\
 		utils/memory utils/utils										\
-		parsing/tokenize parsing/expand parsing/parse parsing/wildcard	\
+		parsing/tokenize 												\
 		processing/process processing/check								\
 		builtins/env_utils builtins/choose								\
 		builtins/echo builtins/cd										\
 		builtins/pwd builtins/export									\
 		builtins/unset builtins/env builtins/exit						\
+		expanding/vars expanding/wildcard expanding/expand				\
 		executing/fork executing/path executing/redirect
 
-FUZZER_FILES := $(FILES) utils/tests
-TESTS_FILES := $(FILES) utils/tests utils/main_tests
+FUZZER_FILES := $(FILES) utils/fuzzer
 FILES += $(MAIN)
 
 SRCS = $(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
@@ -61,11 +61,6 @@ fuzzer: $(FUZZER_OBJS) $(LIBFT)
 	@echo -e "\e[32m✔ Compilating sources files...\e[37m"
 	@clang -o $@ $(FUZZER_OBJS) $(LFLAGS) $(CFLAGS)
 	@echo -e "\e[32m✔ Fuzzer created.\e[37m"
-
-tests: $(TESTS_OBJS) $(LIBFT)
-	@echo -e "\e[32m✔ Compilating sources files...\e[37m"
-	@clang -o $@ $(TESTS_OBJS) $(LFLAGS) $(CFLAGS)
-	@echo -e "\e[32m✔ Tests created.\e[37m"
 
 $(LIBFT):
 	@make -C lib

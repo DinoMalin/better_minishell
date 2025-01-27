@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "expand.h"
 
 static char *ft_getenv_alloc(char **envp, char *target) {
 	char *res = ft_getenv(envp, target);
@@ -34,7 +34,7 @@ char *extract(char *dest, char *src, int size) {
 	return dest;
 }
 
-char *expand(char *str, char **envp) {
+char *expand_vars(char *str, char **envp) {
 	int not_var = 0;
 	char *res = ft_strdup("");
 

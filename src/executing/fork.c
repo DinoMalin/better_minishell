@@ -70,6 +70,7 @@ void execute(Command *head, Context *ctx) {
 
 	while (curr) {
 		DO_PIPE();
+		expand(curr, ctx->env);
 
 		if (IS_BUILTIN(curr->type) && !IS_PIPED(curr)) {
 			fd_storage(STORE);

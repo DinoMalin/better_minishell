@@ -1,5 +1,22 @@
 #include "process.h"
 
+void add_arg(Command *cmd, Node *new) {
+	Node *cpy = ft_calloc(1, sizeof(Node));
+	cpy->content = ft_strdup(new->content);
+	cpy->token = new->token;
+	cpy->index = new->index;
+
+	if (cmd->args) {
+		Node *last = cmd->args;
+		while (last->next) {
+			last = last->next;
+		}
+		last->next = cpy;
+	} else {
+		cmd->args = cpy;
+	}
+}
+
 Command *init_cmd(Transmission from) {
 	Command *res = ft_calloc(1, sizeof(Command));
 
@@ -20,7 +37,8 @@ void analyze_command(Command *cmd, Node **data, int *arg_index) {
 		cmd->cmd = ft_strdup((*data)->content);
 		check_type(cmd, (*data)->token);
 	}
-	cmd->av = clean_strsjoin(cmd->av, ft_strdup((*data)->content));
+
+	add_arg(cmd, *data);
 	(*arg_index)++;
 }
 
@@ -34,6 +52,7 @@ Command *process(Node *data) {
 	Command *curr = NULL;
 
 	while (data) {
+		Node *next = data->next;
 		PROCESS_TRANSMISSION(t_pipe, PIPE);
 		PROCESS_TRANSMISSION(t_and, AND);
 		PROCESS_TRANSMISSION(t_or, OR);
@@ -47,7 +66,7 @@ Command *process(Node *data) {
 			data_index++;
 		}
 		if (data)
-			data = data->next;
+			data = next;
 	}
 	
 	init_ac(head);

@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "expand.h"
 
 int max_index(Node *head) {
 	int max = 0;
@@ -27,22 +27,28 @@ void merge(Node *head) {
 	}
 }
 
-Node *parse(char *str, char **envp) {
-	Node *head = tokenize(str);
-	Node *curr = head;
+void init_av(Command *cmd) {
+	Node *curr = cmd->args;
 
-	if (has_parsing_errors(head)) {
-		return head;
+	while (curr) {
+		Node *next = curr->next;
+		cmd->av = clean_strsjoin(cmd->av, ft_strdup(curr->content));
+		curr = next;
+		cmd->ac++;
 	}
+}
+
+void expand(Command *cmd, char **envp) {
+	Node *curr = cmd->args;
 
 	while (curr) {
 		if (CAN_EXPAND(curr)) {
-			char *expanded = expand(curr->content, envp);
+			char *expanded = expand_vars(curr->content, envp);
 			free(curr->content);
 			curr->content = expanded;
 		}
 		if (CAN_WILDCARD(curr)) {
-			curr = expand_wildcard(curr, max_index(head));
+			curr = expand_wildcard(curr, max_index(cmd->args));
 		}
 
 		for (int i = 0; curr->content[i]; i++) {
@@ -53,7 +59,8 @@ Node *parse(char *str, char **envp) {
 		curr = curr->next;
 	}
 
-	if (head)
-		merge(head);
-	return head;
+	if (cmd->args)
+		merge(cmd->args);
+
+	init_av(cmd);
 }

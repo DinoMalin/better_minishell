@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "tokenize.h"
 
 bool skip_whitespace(char **str) {
 	bool res = false;

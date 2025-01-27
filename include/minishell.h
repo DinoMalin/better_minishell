@@ -84,6 +84,7 @@ typedef enum {
 /* === Executing linked list ===*/
 typedef struct Command {
 	char			*cmd;
+	Node			*args;
 	char			**av;
 	int				ac;
 	t_redir			*redirs;
@@ -104,8 +105,9 @@ typedef struct {
 } Context;
 
 /* ====== MINISHELL ====== */
-Node	*parse(char *str, char **envp);
+Node	*tokenize(char *str);
 Command	*process(Node *data);
+void	expand(Command *cmd, char **envp);
 void	execute(Command *cmd, Context *ctx);
 
 /* ====== SIGNALS ====== */

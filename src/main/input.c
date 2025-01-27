@@ -1,7 +1,7 @@
 #include "minishell.h"
 
 void handle_input(Context *ctx) {
-	Node *data = parse(ctx->input, ctx->env);
+	Node *data = tokenize(ctx->input);
 	if (parsing_error(data)) {
 		free_list(data);
 		return;

@@ -1,4 +1,4 @@
-#include "parse.h"
+#include "expand.h"
 
 static bool its_a_match(char *str, char *entry) {
 	int i = 0;
