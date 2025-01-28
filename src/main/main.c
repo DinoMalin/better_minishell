@@ -33,4 +33,5 @@ int main(int ac, char **av, char **envp) {
 	} while (!ctx.exit);
 
 	free_av(ctx.env);
+	return ctx.code;
 }
