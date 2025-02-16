@@ -88,6 +88,30 @@ void fill_heredoc(Command *cmd) {
 	}
 }
 
+bool add_command(Context *ctx, Command *cmd) {
+	Parser *curr = cmd->args;
+
+	while (curr) {
+		char *content = ft_strchr(curr->content, '=');
+		if (!content)
+			break;
+
+		char *var = ft_substr(curr->content, 0, content - curr->content);
+		if (!var_is_valid(var)) {
+			free(var);
+			dprintf(2, "dinosh: not a valid identifier\n");
+			return false;
+		}
+
+		Parser *next = curr->next;
+		modify_env(&ctx->env, var, content + 1, 0);
+		DELETE_ARG(cmd->args, curr, cmd->args);
+		free(var);
+		curr = next;
+	}
+	return true;
+}
+
 bool init_command(Context *ctx, Command *cmd) {
 	fill_heredoc(cmd);
 	expand(cmd, ctx->env);
@@ -98,6 +122,12 @@ bool init_command(Context *ctx, Command *cmd) {
 	}
 
 	merge(cmd->args);
+	add_command(ctx, cmd);
+	if (command_error(cmd)) {
+		cmd->pid = 0;
+		return false;
+	}
+
 	init_av(cmd);
 	return true;
 }

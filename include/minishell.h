@@ -168,6 +168,7 @@ void	init_basic_vars(Context *ctx);
 bool	this_id_has_wildcard(Parser *head);
 void	read_token(Parser *head);
 bool	is_number(char *str);
+bool	var_is_valid(char *name);
 
 /* ====== ERROR ====== */
 bool	token_error(Parser *head);

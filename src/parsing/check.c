@@ -19,8 +19,6 @@ void check_type(Command *cmd, Token token) {
 		cmd->type = ENV;
 	else if (!ft_strcmp("exit", name))
 		cmd->type = EXIT;
-	else if (ft_strchr(name, '=') && token == t_word)
-		cmd->type = VAR;
 }
 
 void check_redir_errors(Command *cmd, Parser **data) {
