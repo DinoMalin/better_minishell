@@ -11,8 +11,8 @@
 void update_pwd(char *old, Context *ctx) {
 	char *new = getcwd(NULL, 0);
 
-	modify_env(&ctx->env, "PWD", new, 0);
-	modify_env(&ctx->env, "OLDPWD", old, 0);
+	modify_env(&ctx->env, "PWD", new, 0, -1);
+	modify_env(&ctx->env, "OLDPWD", old, 0, -1);
 
 	free(new);
 	free(old);

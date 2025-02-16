@@ -104,7 +104,7 @@ bool add_command(Context *ctx, Command *cmd) {
 		}
 
 		Parser *next = curr->next;
-		modify_env(&ctx->env, var, content + 1, 0);
+		modify_env(&ctx->env, var, content + 1, 0, 1);
 		DELETE_ARG(cmd->args, curr, cmd->args);
 		free(var);
 		curr = next;
@@ -122,7 +122,8 @@ bool init_command(Context *ctx, Command *cmd) {
 	}
 
 	merge(cmd->args);
-	add_command(ctx, cmd);
+	if (cmd->type != SUBSHELL)
+		add_command(ctx, cmd);
 	if (command_error(cmd)) {
 		cmd->pid = 0;
 		return false;

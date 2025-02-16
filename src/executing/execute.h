@@ -7,6 +7,19 @@
 #define xclose(x) {if (x != -1) close(x);}
 #define IS_AMBIGUOUS(x) (x->next->expand_id == x->expand_id && x->expand_id != -1)
 
+#define UPDATE_VAR_DURABILITY(env)				\
+	{											\
+		Env *var = env;							\
+		while (var) {							\
+			Env *next = var->next;				\
+			if (var->durability != -1)			\
+				var->durability--;				\
+			if (!var->durability)				\
+				delete_var(&env, var->var);		\
+			var = next;							\
+		}										\
+	}
+
 #define DELETE_ARG(head, curr, prec)		\
 	{										\
 			if (curr == cmd->args) {		\

@@ -11,6 +11,7 @@ Env *create_env(char **env) {
 		int len_value = ft_strlen(env[i]) - equal;
 		new->var = ft_substr(env[i], 0, equal);
 		new->value = ft_substr(env[i], equal + 1, len_value);
+		new->durability = -1;
 
 		if (!i) {
 			head = new;
@@ -33,7 +34,7 @@ char *ft_getenv(Env *env, char *target) {
 	return NULL;
 }
 
-void modify_env(Env **env, char *target, char *new_value, Special special) {
+void modify_env(Env **env, char *target, char *new_value, Special special, int dur) {
 	Env *curr = *env;
 	Env *last = curr;
 
@@ -52,6 +53,7 @@ void modify_env(Env **env, char *target, char *new_value, Special special) {
 	new->var = ft_strdup(target);
 	new->value = ft_strdup(new_value);
 	new->type = special;
+	new->durability = dur;
 
 	if (!*env) {
 		*env = new;

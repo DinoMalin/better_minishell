@@ -15,7 +15,6 @@
 		return;							\
 	}
 
-void	delete_var(Env **env, char *target);
 void	echo(Command *cmd);
 void	cd(Command *cmd, Context *ctx);
 void	pwd(Command *cmd);

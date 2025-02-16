@@ -23,7 +23,7 @@ void fork_routine(Command *head, Command *cmd, Context *ctx, Pipes *pipes) {
 			.env = ctx->env,
 			.exit = false
 		};
-		handle_input(&subctx); // todo: create copy of env
+		handle_input(&subctx);
 		exit_fork(head, &subctx);
 	} else if (cmd->type == BASIC) {
 		char *path = find_path(ctx->env, cmd->av[0]);
@@ -109,6 +109,7 @@ void execute(Command *head, Context *ctx) {
 			pipes.prev[1] = pipes.curr[1];
 		}
 		CHECK_TRANSMISSION();
+		UPDATE_VAR_DURABILITY(ctx->env);
 		update_code_var(ctx);
 
 		curr = curr->next;
