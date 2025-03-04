@@ -13,6 +13,7 @@ Type get_builtin(char *name) {
 	BUILTIN("jobs", JOBS);
 	BUILTIN("fg", FG);
 	BUILTIN("bg", BG);
+	BUILTIN("alias", ALIAS);
 	BUILTIN("unalias", UNALIAS);
 	return BASIC;
 }
