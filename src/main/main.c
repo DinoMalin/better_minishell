@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../builtins/builtins.h"
 
 extern int g_signal;
 
@@ -104,6 +104,7 @@ int main(int ac, char **av, char **envp) {
 	}
 
 	free_env(ctx.env);
+	unalias_all(&ctx);
 	free_jobs(ctx.jobs);
 	free(ctx.access);
 	rl_clear_history();

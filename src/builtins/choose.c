@@ -13,4 +13,5 @@ void builtin(Command *cmd, Context *ctx) {
 	BUILTIN(JOBS, jobs);
 	BUILTIN(FG, fg);
 	BUILTIN(BG, bg);
+	BUILTIN(UNALIAS, unalias);
 }

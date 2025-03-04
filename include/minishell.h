@@ -80,7 +80,7 @@ typedef struct Parser {
 	Error			error;
 	int				id;
 	int				expand_id;
-	Quotes			quoting;		
+	Quotes			quoting;
 	bool			escaped;
 } Parser;
 
@@ -109,7 +109,8 @@ typedef enum {
 	JOBS,
 	FG,
 	BG,
-	CONTROL_SUBSTITUTION
+	CONTROL_SUBSTITUTION,
+	UNALIAS
 } Type;
 
 typedef struct {
@@ -165,6 +166,12 @@ typedef struct Env {
 	int			durability;
 } Env;
 
+typedef struct Alias {
+	char			*name;
+	char			*value;
+	struct Alias	*next;
+} Alias;
+
 typedef enum {
 	DONE,
 	RUNNING,
@@ -184,6 +191,7 @@ typedef struct Job {
 typedef struct {
 	char	*input;
 	Env		*env;
+	Alias	*alias;
 	bool	exit;
 	int		code;
 	Job		*jobs;
