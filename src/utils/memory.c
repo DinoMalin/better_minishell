@@ -81,3 +81,22 @@ void free_list(Parser *list) {
 		list = next;
 	}
 }
+
+void free_alias(Alias *alias) {
+	free(alias->name);
+	free(alias->value);
+	free(alias);
+	alias = NULL;
+}
+
+void unalias_all(Context *ctx) {
+	Alias *current = ctx->alias;
+	Alias *temp;
+
+	while(current) {
+		temp = current;
+		current = current->next;
+		free_alias(temp);
+	}
+	ctx->alias = NULL;
+}

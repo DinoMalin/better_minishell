@@ -8,9 +8,9 @@
 		}							\
 	}
 
-#define BUILTIN_ERROR(msg)					\
+#define BUILTIN_ERROR(msg, ...)				\
 	{										\
-		ERROR(msg);							\
+		ERROR(msg, ##__VA_ARGS__);			\
 		cmd->exit_code = 1;					\
 		return;								\
 	}
@@ -43,3 +43,5 @@ void	type(Command *cmd, Context *ctx);
 void	jobs(Command *cmd, Context *ctx);
 void	fg(Command *cmd, Context *ctx);
 void	bg(Command *cmd, Context *ctx);
+void	unalias(Command *cmd, Context *ctx);
+void	unalias_all(Context *ctx);
