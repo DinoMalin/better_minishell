@@ -254,6 +254,7 @@ char	*get_random_file_name();
 char	*resolve_globing(char *str, char *pattern, bool suffix);
 void	add_tokenized_args(Parser *el, char *value, int max);
 void	fork_routine(Command *head, Command *cmd, Context *ctx, Pipes *pipes);
+char	*is_alias(char *name, Alias *alias);
 
 /* ====== JOBS ====== */
 void	add_job(Context *ctx, Command *cmd, State state);

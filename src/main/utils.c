@@ -38,7 +38,43 @@ void update_code_var(Context *ctx) {
 	free(s);
 }
 
+char *replace_alias(char *str, Context *ctx) {
+	char *start = NULL;
+	char *end = NULL;
+	char save;
+
+	for (uint i = 0; str[i]; i++) {
+		if (start && (str[i] == ' ' || !str[i])) {
+			end = str + i;
+			break;
+		}
+		if (!start && str[i] != ' ')
+			start = str + i;
+	}
+	if (!end)
+		end = str + ft_strlen(str);
+	if (*start == '\\')
+		return str;
+
+	save = *end;
+	*end = '\0';
+	char *alias_value = is_alias(start, ctx->alias);
+	if (!alias_value) {
+		*end = save;
+		return str;
+	}
+	uint final_len = ft_strlen(alias_value) + ft_strlen(str) - ft_strlen(start) + 1;
+	char *final_str = malloc(final_len);
+	final_str[final_len - 1] = '\0';
+	strcpy(final_str, alias_value);
+	*end = save;
+	strcat(final_str, end);
+	free(str);
+	return final_str;
+}
+
 void handle_input(Context *ctx) {
+	ctx->input = replace_alias(ctx->input, ctx);
 	Parser *data = tokenize(ctx->input);
 	if (token_error(data)) {
 		ctx->code = 2;
