@@ -19,7 +19,7 @@ FILES	= main/errors main/utils main/signals							\
 		builtins/type builtins/pwd builtins/export						\
 		builtins/set builtins/jobs builtins/unset						\
 		builtins/env builtins/exit builtins/fg							\
-		builtins/bg builtins/unalias									\
+		builtins/bg builtins/alias builtins/unalias						\
 		env/utils env/accessors											\
 		jobs/jobs														\
 		expanding/vars expanding/wildcard expanding/parameter			\

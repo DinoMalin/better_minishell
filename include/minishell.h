@@ -110,6 +110,7 @@ typedef enum {
 	FG,
 	BG,
 	CONTROL_SUBSTITUTION,
+	ALIAS,
 	UNALIAS
 } Type;
 

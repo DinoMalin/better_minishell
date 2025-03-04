@@ -43,5 +43,6 @@ void	type(Command *cmd, Context *ctx);
 void	jobs(Command *cmd, Context *ctx);
 void	fg(Command *cmd, Context *ctx);
 void	bg(Command *cmd, Context *ctx);
+void	alias(Command *cmd, Context *ctx);
 void	unalias(Command *cmd, Context *ctx);
 void	unalias_all(Context *ctx);
